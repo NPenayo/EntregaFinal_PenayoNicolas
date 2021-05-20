@@ -1,6 +1,6 @@
 /*
  ============================================================================
- Name        : parcial1_labo.c
+ Name        : parcial1_labo_Parte 2.c
  Author      : Nicolas Alejandro Penayo 1 E
  Description : Parcial 1 Laboratorio
  ============================================================================
@@ -15,7 +15,9 @@
 #include "Validations.h"
 #include "Taxpayer.h"
 #include "Income.h"
-#define MAIN_OPT 9
+#include "Reports.h"
+#define MAIN_OPT 10
+#define RP_OPT 5
 #define UPD_OPT 4
 #define MAX_ATTEMPTS 3
 #define TP_AMOUNT 10
@@ -28,6 +30,7 @@ int main(void) {
 	int icId = 100;
 	char opt;
 	Option mainMenu[MAIN_OPT];
+	Option reports[RP_OPT];
 	int auxIndex;
 	int auxId;
 	char valid_values[2] = { 's', 'n' };
@@ -47,7 +50,8 @@ int main(void) {
 	setOption('6', "Saldar Recaudacion", mainMenu, 5);
 	setOption('7', "Imprimir Contribuyentes", mainMenu, 6);
 	setOption('8', "Imprimir Recaudacion", mainMenu, 7);
-	setOption('x', "Salir", mainMenu, 8);
+	setOption('9', "Informes", mainMenu, 8);
+	setOption('x', "Salir", mainMenu, 9);
 
 	do {
 		clearConsole();
@@ -147,7 +151,7 @@ int main(void) {
 										"\n\nCarga exitosa. Desea cargar otra recaudacion?(s/n) ");
 								cleanBuffer();
 								scanf("%c", &opt);
-							}else{
+							} else {
 								break;
 							}
 
@@ -223,7 +227,30 @@ int main(void) {
 					getchar();
 				}
 				break;
-			default:
+			case '9':
+				setOption('1', "Alta de contribuyente", reports, 0);
+				setOption('2', "Modificar datos contribuyente", reports, 1);
+				setOption('3', "Baja de contribuyente", reports, 2);
+				setOption('4', "Recaudacion", reports, 3);
+				setOption('x', "Salir", reports, 4);
+				printMenu(reports, RP_OPT);
+				printf("\nElija una opcion");
+				cleanBuffer();
+				scanf("%c",&opt);
+				if(getOption(opt, reports, RP_OPT)){
+					switch(opt){
+					case 'a':
+						break;
+
+					case 'b':
+						incomeAmount(tpList, TP_AMOUNT, icList, IC_AMOUNT, types, 4);
+						break;
+					case 'c':
+						break;
+					case 'd':
+						break;
+					}
+				}
 				break;
 			}
 		} else {
